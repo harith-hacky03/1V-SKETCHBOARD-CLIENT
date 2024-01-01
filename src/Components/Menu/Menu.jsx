@@ -167,7 +167,7 @@ const Menu = () => {
             </div>
         </div>
         <div className='min-h-screen overflow-hidden'>
-        <canvas onTouchEnd={(event)=>handleMouseUp(event.touches[0].clientX,event.touches[0].clientY)} onTouchMove={(event)=>handleMouseMove(event.touches[0].clientX,event.touches[0].clientY)} onTouchStart={(event)=>handleMouseDown(event.touches[0].clientX,event.touches[0].clientY)}  onMouseDown={(event)=>handleMouseDown(event.clientX,event.clientY)} onMouseMove={(event)=>handleMouseMove(event.clientX,event.clientY)} onMouseUp={handleMouseUp} ref={canvasRef} />
+        <canvas  onTouchMove={(event)=>handleMouseMove(event.touches[0].clientX,event.touches[0].clientY)} onTouchStart={(event)=>handleMouseDown(event.touches[0].clientX,event.touches[0].clientY)}  onMouseDown={(event)=>handleMouseDown(event.clientX,event.clientY)} onMouseMove={(event)=>handleMouseMove(event.clientX,event.clientY)} onMouseUp={handleMouseUp} ref={canvasRef} />
         </div>
     </div>
   )
