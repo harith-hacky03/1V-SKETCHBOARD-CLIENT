@@ -46,7 +46,7 @@ const Menu = () => {
         const canvas=canvasRef.current
         setCanvas(canvas)
 
-        let socket=io.connect('http://localhost:5000')
+        let socket=io.connect('https://sketchboard-server.onrender.com/')
         setSocket(socket)
 
         canvas.width=window.innerWidth
