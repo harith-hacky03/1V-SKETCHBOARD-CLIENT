@@ -1,0 +1,4 @@
+.main{
+    @apply overflow-hidden overflow-y-hidden
+}
+
