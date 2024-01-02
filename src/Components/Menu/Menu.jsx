@@ -40,17 +40,22 @@ const Menu = () => {
         socket.emit('send-size',size)
     }
 
-
+    //check commit
     useEffect(()=>{
         if(!canvasRef.current) return
         const canvas=canvasRef.current
         setCanvas(canvas)
 
-        let socket=io.connect('http://localhost:5000')
+        let socket=io.connect('https://sketchboard-server.onrender.com/')
         setSocket(socket)
 
         canvas.width=window.innerWidth
         canvas.height=window.innerHeight-1
+
+        window.addEventListener('resize', function () {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
 
         const context=canvas.getContext('2d')
         setContext(context)
@@ -147,15 +152,15 @@ const Menu = () => {
     }
 
   return (
-    <div className={styles.main}>
+    <div className="md:min-h-screen h-[92vh] overflow-hidden ">
         <div className='flex absolute w-1/4 justify-around border-2 mt-5 border-purple-400 bg-purple-100 py-2 rounded-xl left-1/2 translate-x-[-50%]'>
         <a href={url} download={true}><button className={styles.btn}><FontAwesomeIcon icon={faFileArrowDown} /></button></a>
         <button onClick={undo} className=""><FontAwesomeIcon icon={faArrowRotateLeft} /></button>
         <button onClick={redo}  className=''><FontAwesomeIcon icon={faArrowRotateRight} /></button>
         </div>
-        <div className='absolute border-2 rounded-xl border-purple-200 bg-purple-100 top-1/4 left-12'>
+        <div className='absolute border-2 top-20   rounded-xl border-purple-200 bg-purple-100 md:top-1/4 md:left-12'>
             <div className='p-5'>
-                <div className='flex gap-5'>
+                <div className='flex gap-1 md:gap-5'>
                 <div onClick={()=>handleColorChange('yellow')} className='w-5 h-5 rounded-sm bg-yellow-400 cursor-pointer'></div>
                 <div onClick={()=>handleColorChange('green')} className='w-5 h-5 rounded-sm bg-green-400 cursor-pointer'></div>
                 <div onClick={()=>handleColorChange('black')} className='w-5 h-5 rounded-sm bg-black cursor-pointer'></div>
@@ -167,7 +172,7 @@ const Menu = () => {
             </div>
         </div>
         <div className='min-h-screen overflow-hidden'>
-        <canvas  onMouseDown={(event)=>handleMouseDown(event.clientX,event.clientY)} onMouseMove={(event)=>handleMouseMove(event.clientX,event.clientY)} onMouseUp={handleMouseUp} ref={canvasRef} />
+        <canvas   onTouchMove={(event)=>handleMouseMove(event.touches[0].clientX,event.touches[0].clientY)} onTouchEnd={()=>handleMouseUp} onTouchStart={(event)=>handleMouseDown(event.touches[0].clientX,event.touches[0].clientY)}  onMouseDown={(event)=>handleMouseDown(event.clientX,event.clientY)} onMouseMove={(event)=>handleMouseMove(event.clientX,event.clientY)} onMouseUp={handleMouseUp} ref={canvasRef} />
         </div>
     </div>
   )
